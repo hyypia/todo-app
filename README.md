@@ -6,4 +6,3 @@ js:
 -react;
 -classnames.
 
-add formik, drag n drop, local storage
