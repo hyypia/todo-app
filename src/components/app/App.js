@@ -101,6 +101,15 @@ export default class App extends Component {
           onToggleImportant={this.onToggleImportant}
         />
         <AddItemPanel handleSubmit={this.handleSubmit} />
+        <p className="text-center">
+          <a
+            className="source text-secondary"
+            href="https://github.com/hyypia/todo-app"
+          >
+            Source Code
+            <i className="fa fa-github pl-1" />
+          </a>
+        </p>
       </div>
     );
   }
