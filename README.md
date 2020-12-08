@@ -6,4 +6,4 @@ js:
 -react;
 -classnames.
 
-add formik, drag n drop, local storage
+https://todo-app-pi.vercel.app/
