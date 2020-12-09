@@ -1,38 +1,54 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { useFormik } from 'formik';
 
-export default class AddItemPanel extends Component {
-  initialState = {
-    action: '',
-  };
+const AddItemPanel = ({ handleSubmit }) => {
+  const formik = useFormik({
+    initialValues: {
+      action: '',
+    },
 
-  state = this.initialState;
+    onSubmit: (values, { resetForm }) => {
+      handleSubmit(values);
+      resetForm({ action: '' });
+    },
 
-  handleChange = (event) => {
-    this.setState({
-      action: event.target.value,
-    });
-  };
+    validate: (values) => {
+      const errors = {};
 
-  submitForm = (e) => {
-    e.preventDefault();
-    this.props.handleSubmit(this.state);
-    this.setState(this.initialState);
-  };
+      if (!values.action) {
+        errors.action = 'Requred';
+      } else if (values.action.length < 1) {
+        errors.action = 'Requred';
+      }
 
-  render() {
-    return (
-      <form className="form-group d-flex mt-3" onSubmit={this.submitForm}>
+      return errors;
+    },
+  });
+
+  return (
+    <div>
+      <form
+        className="form-group d-flex mt-3 mb-0"
+        onSubmit={formik.handleSubmit}
+      >
         <input
+          id="action"
+          name="action"
           type="text"
           placeholder="Type to Add"
           className="form-control mr-1"
-          value={this.state.action}
-          onChange={this.handleChange}
+          value={formik.values.action}
+          onChange={formik.handleChange}
         />
         <button type="submit" className="btn btn-outline-secondary">
           Add
         </button>
       </form>
-    );
-  }
-}
+      {formik.errors.action ? (
+        <div className="text-danger m-0 ml-3">{formik.errors.action}</div>
+      ) : null}
+    </div>
+  );
+};
+
+export default AddItemPanel;
